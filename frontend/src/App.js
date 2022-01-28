@@ -1,49 +1,34 @@
-
-import data from './data'
+import { BrowserRouter, Route, Routes} from "react-router-dom";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
 
 function App() {
-  return (
-    <div className="grid-container">
-      <header className="row">
-        <a className="brand" href="/">amazona</a>
+ 
 
-        <div>
-          <a href="/cart">Cart</a>
-          <a href="/signin">Signin</a>
-        </div>
-      </header>
-      <main>
-        <div className="row center">
-    {
-      data.products.map((product) =>{return(
-     
-          <div key={product._id} className="card">
-            <a href={`/products/${product._id}`}>
-              
-              <img className="medium" src={`${product.image}`} alt={`${product.name}`} />
-            </a>
-            <div className="card-body">
-              <a href={`/products/${product._id}`} >
-                <h2>{product.name}</h2>
-              </a>
-              <div className="rating">
-                <span><i className="fa fa-star"></i></span>
-                <span><i className="fa fa-star"></i></span>
-                <span><i className="fa fa-star"></i></span>
-                <span><i className="fa fa-star"></i></span>
-                <span><i className="fa fa-star"></i></span>
-              </div>
-              <div className="price">${product.price}</div>
-            </div>
+  return (
+    <BrowserRouter>
+      <div className="grid-container">
+        <header className="row">
+          <a className="brand" href="/">
+            amazona
+          </a>
+
+          <div>
+            <a href="/cart">Cart</a>
+            <a href="/signing">Signin</a>
           </div>
-      )
-        
-})}
-          
-        </div>
-      </main>
-      <footer className="row center">All rights reserved</footer>
-    </div>
+        </header>
+        <main>
+          {/* Using react-router-dom to load parts of the webpage */}
+          <Routes>
+            <Route path="/" element={<HomeScreen />} exact></Route>
+            <Route path="/products/:id" element={<ProductScreen />} exact></Route>
+          </Routes>
+         
+        </main>
+        <footer className="row center">All rights reserved</footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
