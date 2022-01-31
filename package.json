@@ -1,0 +1,23 @@
+{
+  "name": "amazona",
+  "type":"module",
+  "version": "1.0.0",
+  "description": "��a\u0000m\u0000a\u0000z\u0000o\u0000n\u0000a\u0000-\u0000a\u0000p\u0000p\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon --watch server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/humbertocrj/amazona-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/humbertocrj/amazona-app/issues"
+  },
+  "homepage": "https://github.com/humbertocrj/amazona-app#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
