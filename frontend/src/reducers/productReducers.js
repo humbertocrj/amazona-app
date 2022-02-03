@@ -2,7 +2,14 @@
 //  state of the application and returns the new state. The action describes what
 //   happened and it is the reducer's job to return the new state based on that action.
 
-const {PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL} = require('../constants/productConstants')
+const {
+  PRODUCT_LIST_REQUEST, 
+  PRODUCT_LIST_SUCCESS, 
+  PRODUCT_LIST_FAIL,
+  PRODUCT_DETAILS_REQUEST,
+  PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_DETAILS_FAIL
+} = require('../constants/productConstants')
 
 //Based on the action and previous state, the reducer returns a new state
 export const productListReducer = (state = { products: [] }, action) => {
@@ -17,3 +24,16 @@ export const productListReducer = (state = { products: [] }, action) => {
       return state;
   }
 };
+
+export const productDetailsReducer = (state = {product:{}, loading:true}, action) =>{
+  switch(action.type){
+    case PRODUCT_DETAILS_REQUEST:
+      return {loading:true};
+    case PRODUCT_DETAILS_SUCCESS:
+      return {loading:false, product: action.payload}
+    case PRODUCT_DETAILS_FAIL:
+      return {loading: false, error: action.payload}
+    default:
+      return state
+  }
+}

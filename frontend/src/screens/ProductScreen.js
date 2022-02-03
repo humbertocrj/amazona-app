@@ -1,19 +1,37 @@
-import React from "react";
-import data from "../data";
-import { useParams, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import Rating from "../components/Rating";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox ";
+import {detailsProduct} from '../actions/productActions'
 
-export default function ProductScreen() {
-  // Used to get the id in the URL
+export default function ProductScreen(props) {
+  // // Used to get the id in the URL
+  // const { id } = useParams();
+
+  // //Find the product with the id in the URL
+  // const product = data.products.find((p) => p._id === id);
   const { id } = useParams();
+  const productId = id
+  
+  //The function userSelector is a HOOK inside react redux, allow to
+  //extract data from Redux store
+  const productDetails = useSelector((state) => state.productDetails);
 
-  //Find the product with the id in the URL
-  const product = data.products.find((p) => p._id === id);
+  const { loading, error, product } = productDetails;
+  const dispatch = useDispatch()
 
-  if (!product) {
-    return "Product not found!";
-  }
-  return (
+
+  useEffect(()=>{
+    dispatch(detailsProduct(productId))
+  },[dispatch, productId])
+
+  return loading ? (
+    <LoadingBox></LoadingBox>
+  ) : error ? (
+    <MessageBox variant="danger">{error}</MessageBox>
+  ) : (
     <div>
       <Link to={"/"}>Back to result</Link>
       <div className="row top">
