@@ -1,12 +1,19 @@
 import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import thunk from 'redux-thunk'
 import {productListReducer, productDetailsReducer} from "./reducers/productReducers"
+import {cartReducer} from "./reducers/cartReducers"
 
-const initialState = {};
+const initialState = {
+  cart:{
+    cartItems: localStorage.getItem('cartItems')?
+    JSON.parse(localStorage.getItem('cartItems')):[]
+  }
+};
 
 const reducer = combineReducers({
     productList: productListReducer,
-    productDetails:productDetailsReducer
+    productDetails:productDetailsReducer,
+    cart:cartReducer,
 })
 
 //Setup to use redux devtool, it seems hehehe. Now it's possible to monitor the state using inspect in the browser.

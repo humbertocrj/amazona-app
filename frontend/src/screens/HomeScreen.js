@@ -4,7 +4,7 @@ import MessageBox from "../components/MessageBox ";
 import LoadingBox from "../components/LoadingBox";
 import {useSelector, useDispatch} from 'react-redux'
 import {listProducts} from '../actions/productActions'
-import axios from 'axios'
+
 export default function HomeScreen() {
 
 //  The react hook is no more necessary, because the application's states is now managed by the Redux(
@@ -20,9 +20,11 @@ const productList = useSelector((state)=>state.productList)
 
 const {loading, error, products} = productList
  
+// What is useEffect in React?
+// What does useEffect do? By using this Hook, you tell React that your component needs to do something after render. 
   useEffect(() => {
     dispatch(listProducts())
-  }, []);
+  }, [dispatch]);
   //THE CODE ABOVE IS USED TO GET DATA FROM BACKEND
 
   return loading ? (
