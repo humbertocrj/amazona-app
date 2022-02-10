@@ -33,6 +33,7 @@ function App() {
             <Route path="/" element={<HomeScreen />} exact></Route>
             <Route path="/products/:id" element={<ProductScreen />} exact></Route>
             <Route path="/cart/:id" element={<CartScreen />} exact></Route>
+            <Route path="/cart/" element={<CartScreen />} exact></Route>
           </Routes>
          
         </main>
