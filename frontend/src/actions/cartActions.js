@@ -1,23 +1,32 @@
-import Axios from 'axios'
-const {CART_ADD_ITEM} = require('../constants/cartConstants')
+import Axios from "axios";
+const {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+} = require("../constants/cartConstants");
 
-export const addToCart = (productId, qty) => async(dispatch, getState)=>{
-    //Get the product from backend
-    const {data} = await Axios.get(`/api/products/${productId}`)
+export const addToCart = (productId, qty) => async (dispatch, getState) => {
+  //Get the product from backend
+  const { data } = await Axios.get(`/api/products/${productId}`);
 
-    dispatch({
-        type: CART_ADD_ITEM, 
-        payload: {
-            name:data.name,
-            image:data.image,
-            price:data.price,
-            countInStock:data.countInStock,
-            product:data._id,
-            qty,
-        }
-    })
+  dispatch({
+    type: CART_ADD_ITEM,
+    payload: {
+      name: data.name,
+      image: data.image,
+      price: data.price,
+      countInStock: data.countInStock,
+      product: data._id,
+      qty,
+    },
+  });
 
-    //If page is refreshed, then all states will be cleared. So we need to store the information
-    //using localStorage
-    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
-}
+  //If page is refreshed, then all states will be cleared. So we need to store the information
+  //using localStorage
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+};
+
+export const removeFromCart = (productId) => (dispatch, getState) => {
+  dispatch({ type: CART_REMOVE_ITEM , payload: productId});
+  
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+};

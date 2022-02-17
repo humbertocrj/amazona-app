@@ -1,7 +1,7 @@
 // Must use useParams and useSearchParams because we are using reac-router-dom V.6
 import { useEffect } from "react";
 import { Link, useParams, useSearchParams, useNavigate } from "react-router-dom";
-import { addToCart } from "../actions/cartActions";
+import { addToCart, removeFromCart } from "../actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import MessageBox from "../components/MessageBox ";
 
@@ -26,6 +26,8 @@ export default function CartScreen(props) {
 
   const removeFromCartHandler = (id) => {
     //delete action
+     
+    dispatch(removeFromCart(id))
   };
 
   const checkoutHandler = () =>{
@@ -41,9 +43,9 @@ export default function CartScreen(props) {
         ) : (
           <ul>
             {cartItems.map((item) => (
-              <li keys={item.product}>
+              <li key={item.product}>
                 <div className="row">
-                  <img className="small" src={item.image} alt={item.name}></img>
+                  <img key={Date.now()} className="small" src={item.image} alt={item.name}></img>
 
                   <div className="min-30">
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
@@ -57,7 +59,7 @@ export default function CartScreen(props) {
                       }
                     >
                       {[...Array(item.countInStock).keys()].map((x) => (
-                        <option keys={x + 1} value={x + 1}>
+                        <option key={(x + 1)} value={x + 1}>
                           {x + 1}
                         </option>
                       ))}
