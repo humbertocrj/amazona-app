@@ -3,6 +3,7 @@ import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import { useSelector } from "react-redux";
+import SigninScreen from "./screens/SigninScreen";
 
 function App() {
   //the function useSeletor allow us to access the store and its states, we'll get the cart state
@@ -24,22 +25,25 @@ function App() {
                 <span className="badge">{cartItems.length}</span>
               )}
             </Link>
-            <Link to="/signing">Signin</Link>
+            <Link to="/signin">Signin</Link>
           </div>
         </header>
         <main>
           {/* Using react-router-dom to load parts of the webpage */}
           <Routes>
-            <Route path="/" element={<HomeScreen />} exact></Route>
+            <Route path="/cart/">
+              <Route path=":id" element={<CartScreen />}></Route>
+              <Route path="" element={<CartScreen />}></Route>
+            </Route>
             <Route
               path="/products/:id"
               element={<ProductScreen />}
               exact
             ></Route>
-            <Route path="/cart/">
-              <Route path=":id" element={<CartScreen />}></Route>
-              <Route path="" element={<CartScreen />}></Route>
-            </Route>
+
+            <Route path="/signin/" element={<SigninScreen />} ></Route>
+
+            <Route path="/" element={<HomeScreen />} exact></Route>
           </Routes>
         </main>
         <footer className="row center">All rights reserved</footer>

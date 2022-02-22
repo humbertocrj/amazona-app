@@ -27,6 +27,8 @@ userRouter.post('/signin', expressAsyncHandler(async (req, res) => {
                 isAdmin:user.isAdmin,
                 token: generateToken(user),
             })
+        }else{
+            res.status(401).send({message: 'Invalid password or username.'})
         }
     }else{
         res.status(401).send({message: 'Invalid password or username.'})
