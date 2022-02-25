@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // Must use useParams and useNavigate because we are using reac-router-dom V.6
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, Route } from "react-router-dom";
 import Rating from "../components/Rating";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox ";
 import { detailsProduct } from "../actions/productActions";
+import CartScreen from "./CartScreen";
 
 
 export default function ProductScreen(props) {
@@ -34,7 +35,9 @@ export default function ProductScreen(props) {
   const navigate = useNavigate()
 
   const addToCartHandler = () => {
-    navigate(`/cart/${productId}?qty=${qty}`)
+    
+
+     navigate(`/cart/${productId}?qty=${qty}`)
   }
   
 

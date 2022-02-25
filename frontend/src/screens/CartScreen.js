@@ -10,6 +10,7 @@ export default function CartScreen(props) {
   const [searchParams] = useSearchParams();
   const { id } = useParams();
   const qty = searchParams.get("qty") ? searchParams.get("qty") : 1;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,6 +19,7 @@ export default function CartScreen(props) {
   useEffect(() => {
     if (id) {
       dispatch(addToCart(id, qty));
+
     }
   }, [dispatch, id, qty]);
 
@@ -45,7 +47,7 @@ export default function CartScreen(props) {
             {cartItems.map((item) => (
               <li key={item.product}>
                 <div className="row">
-                  <img key={Date.now()} className="small" src={item.image} alt={item.name}></img>
+                  <img key={Date.now()} className="small" src={`/${item.image}`} alt={item.name}></img>
 
                   <div className="min-30">
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
