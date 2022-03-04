@@ -29,6 +29,7 @@ export default function SigninScreen() {
 
 
     let {search} = useLocation();
+    console.log(search)
     const redirect = (search? "/"+search.split('=')[1]: '/')
 
     useEffect(() => {
@@ -75,7 +76,7 @@ export default function SigninScreen() {
             <label></label>
             <div>
                 New Costumer?{' '}
-                <Link to={'/register'}>Create your account</Link>
+                <Link to={`/register?redirect=${redirect}`}>Create your account</Link>
             </div>
         </div>
       </form>

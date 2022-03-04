@@ -2,7 +2,7 @@ import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import thunk from 'redux-thunk'
 import {productListReducer, productDetailsReducer} from "./reducers/productReducers"
 import {cartReducer} from "./reducers/cartReducers"
-import { userSigninReducer } from "./reducers/userReducer";
+import { userRegisterReducer, userSigninReducer } from "./reducers/userReducer";
 
 //Initial state gets data from localstorage so the browser can be refreshed and updated
 // the data will remain with the components
@@ -24,6 +24,7 @@ const reducer = combineReducers({
     productDetails:productDetailsReducer,
     cart:cartReducer,
     userSignin: userSigninReducer,
+    userRegister:userRegisterReducer,
 })
 
 //Setup to use redux devtool, it seems hehehe. Now it's possible to monitor the state using inspect in the browser.

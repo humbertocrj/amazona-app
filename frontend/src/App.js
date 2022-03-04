@@ -4,6 +4,7 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import { useSelector, useDispatch } from "react-redux";
 import SigninScreen from "./screens/SigninScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 import {signout} from './actions/userActions'
 function App() {
   //the function useSeletor allow us to access the store and its states, we'll get the cart state
@@ -63,6 +64,7 @@ function App() {
             ></Route>
 
             <Route path="/signin/" element={<SigninScreen />}></Route>
+            <Route path="/register/" element={<RegisterScreen />}></Route>
 
             <Route path="/" element={<HomeScreen />} exact></Route>
           </Routes>
