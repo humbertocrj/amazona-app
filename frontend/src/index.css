@@ -152,10 +152,13 @@ a:hover {
   margin: 1rem;
 }
 
-.form label{
-  margin: 1rem 0;
-  display: block;
+.form .radio{
+  flex-direction: row;
 }
+.form label{
+  margin-left:5px;
+}
+
 /* ===Dropdown=== */
 .dropdown{
   display:inline-block;

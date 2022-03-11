@@ -5,21 +5,21 @@ import { saveShippingAddress } from "../actions/cartActions";
 import { useNavigate } from "react-router-dom";
 
 export const ShippingAddressScreen = () => {
-  
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const navigate = useNavigate();
 
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const { cartItems, shippingAddress } = cart;
 
   useEffect(() => {
     if (!userInfo) {
       navigate("/signin");
+    }else if(cartItems.length === 0) {
+      navigate("/")
     }
   });
 
-  
   const [fullName, setFullName] = useState(shippingAddress.fullName);
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);

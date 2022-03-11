@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link, useNavigate} from "react-router-dom";
 import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
@@ -7,6 +7,7 @@ import SigninScreen from "./screens/SigninScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import {signout} from './actions/userActions'
 import { ShippingAddressScreen } from "./screens/ShippingAddressScreen";
+import { PaymentMethodsScreen } from "./screens/PaymentMethodsScreen";
 function App() {
   //the function useSeletor allow us to access the store and its states, we'll get the cart state
   const cart = useSelector((state) => state.cart);
@@ -16,12 +17,15 @@ function App() {
   const { userInfo } = userSignin;
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const signoutHandler =()=>{
     dispatch(signout());
+    navigate('/')
   }
 
   return (
-    <BrowserRouter>
+    
       <div className="grid-container">
         <header className="row">
           <Link className="brand" to="/">
@@ -67,13 +71,14 @@ function App() {
             <Route path="/signin/" element={<SigninScreen />}></Route>
             <Route path="/register/" element={<RegisterScreen />}></Route>
             <Route path="/shipping/" element={<ShippingAddressScreen />}></Route>
+            <Route path="/payment/" element={<PaymentMethodsScreen />}></Route>
 
             <Route path="/" element={<HomeScreen />} exact></Route>
           </Routes>
         </main>
         <footer className="row center">All rights reserved</footer>
       </div>
-    </BrowserRouter>
+    
   );
 }
 
