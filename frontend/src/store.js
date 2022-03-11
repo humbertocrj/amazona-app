@@ -15,7 +15,10 @@ const initialState = {
   },
   cart:{
     cartItems: localStorage.getItem('cartItems')?
-    JSON.parse(localStorage.getItem('cartItems')):[]
+    JSON.parse(localStorage.getItem('cartItems')):[],
+    shippingAddress: localStorage.getItem('shippingAddress')?
+    JSON.parse(localStorage.getItem('shippingAddress')):
+    ""
   }
 };
 
@@ -30,6 +33,8 @@ const reducer = combineReducers({
 //Setup to use redux devtool, it seems hehehe. Now it's possible to monitor the state using inspect in the browser.
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+//Redux Thunk is middleware that allows you to return functions, rather 
+// than just actions, within Redux. This allows for delayed actions, including working with promises.
 const store = createStore(
   reducer,
   initialState,

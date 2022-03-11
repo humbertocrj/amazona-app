@@ -14,14 +14,16 @@ export default function HomeScreen() {
 // You may use it to dispatch actions as needed.
 const dispatch = useDispatch();
 
-// Allows you to extract data from the Redux store state, using a selector function.
+// Allows you to extract data from the Redux store state, using a 
+// selector function.
 const productList = useSelector((state)=>state.productList)
 
 
 const {loading, error, products} = productList
  
 // What is useEffect in React?
-// What does useEffect do? By using this Hook, you tell React that your component needs to do something after render. 
+// What does useEffect do? By using this Hook, you tell React that your 
+// component needs to do something after render. 
   useEffect(() => {
     dispatch(listProducts())
   }, [dispatch]);
