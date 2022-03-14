@@ -20,7 +20,8 @@ export const PaymentMethodsScreen = () => {
   const { shippingAddress } = cart;
 
   useEffect(() => {
-    if (!shippingAddress) {
+   
+    if (shippingAddress==="") {
       navigate("/shipping");
     }
   });

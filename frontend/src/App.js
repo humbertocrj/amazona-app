@@ -8,6 +8,8 @@ import RegisterScreen from "./screens/RegisterScreen";
 import {signout} from './actions/userActions'
 import { ShippingAddressScreen } from "./screens/ShippingAddressScreen";
 import { PaymentMethodsScreen } from "./screens/PaymentMethodsScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+
 function App() {
   //the function useSeletor allow us to access the store and its states, we'll get the cart state
   const cart = useSelector((state) => state.cart);
@@ -54,6 +56,7 @@ function App() {
             )}
           </div>
         </header>
+        
         <main>
           {/* Using react-router-dom to load parts of the webpage */}
           <Routes>
@@ -72,6 +75,7 @@ function App() {
             <Route path="/register/" element={<RegisterScreen />}></Route>
             <Route path="/shipping/" element={<ShippingAddressScreen />}></Route>
             <Route path="/payment/" element={<PaymentMethodsScreen />}></Route>
+            <Route path="/placeOrder/" element={<PlaceOrderScreen />}></Route>
 
             <Route path="/" element={<HomeScreen />} exact></Route>
           </Routes>
