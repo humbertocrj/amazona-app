@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import data from "./data.js";
 import productRouter from "./routers/productRouter.js";
 import userRouter from "./routers/userRouter.js"
+import orderRouter from "./routers/orderRouter.js"
 import dotenv from 'dotenv'
 
 const res = dotenv.config()
@@ -18,6 +19,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter) 
+app.use('/api/orders', orderRouter)  
 
 
 //Middleware used to get error in my routes (expressAsyncHandler
