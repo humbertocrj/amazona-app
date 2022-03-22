@@ -6,6 +6,7 @@ import {
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import { userRegisterReducer, userSigninReducer } from "./reducers/userReducer";
+import {orderCreateReducer}  from "./reducers/orderReducers";
 
 //Initial state gets data from localstorage so the browser can be refreshed and updated
 // the data will remain with the components
@@ -33,6 +34,7 @@ const reducer = combineReducers({
   cart: cartReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
+  orderCreate:orderCreateReducer,
 });
 
 //Setup to use redux devtool, it seems hehehe. Now it's possible to monitor the state using inspect in the browser.

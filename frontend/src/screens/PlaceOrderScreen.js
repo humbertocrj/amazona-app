@@ -1,31 +1,54 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { createOrder } from "../actions/orderActions.js";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
+
+import LoadingBox from '../components/LoadingBox'
+import MessageBox from '../components/MessageBox '
 
 export default function PlaceOrderScreen() {
   //Access of redux store
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, success, error, order } = orderCreate;
 
   useEffect(() => {
+   
     if (!cart.paymentMethod) {
       navigate("/payment");
     }
     if (cart.shippingAddress === "") {
       navigate("/shipping");
     }
-    if(cart.cartItems.length ===0){
-        navigate('/')
+    if (cart.cartItems.length === 0) {
+      navigate("/");
     }
-  }, [cart.paymentMethod, navigate, cart.shippingAddress, cart.cartItems.length]);
+
+    if(success){
+      navigate(`/order/${order._id}`)
+      dispatch({type:ORDER_CREATE_RESET})
+    }
+  }, [
+    cart.paymentMethod,
+    navigate,
+    cart.shippingAddress,
+    cart.cartItems.length,
+    success,
+    order,
+    dispatch
+  ]);
 
   const toPrice = (num) => {
     return Number(num.toFixed(2));
   }; // Convert 5.1234 to "5.12", and then, 5.12 number
 
-  cart.itemsPrice =  toPrice(
+  cart.itemsPrice = toPrice(
     cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
   );
 
@@ -33,9 +56,11 @@ export default function PlaceOrderScreen() {
   cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
 
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-const placeOrderHandler =()=>{
 
-}
+
+  const placeOrderHandler = () => {
+    dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
+  };
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
@@ -83,7 +108,8 @@ const placeOrderHandler =()=>{
                         </div>
 
                         <div>
-                          {item.qty} x ${item.price.toFixed(2)}= ${(item.price * item.qty).toFixed(2)}{" "}
+                          {item.qty} x ${item.price.toFixed(2)}= $
+                          {(item.price * item.qty).toFixed(2)}{" "}
                         </div>
                         <div></div>
                       </div>
@@ -120,18 +146,26 @@ const placeOrderHandler =()=>{
               </li>
               <li>
                 <div className="row">
-                  <div><strong>Order Total</strong></div>
-                  <div><strong>${cart.totalPrice}</strong></div>
+                  <div>
+                    <strong>Order Total</strong>
+                  </div>
+                  <div>
+                    <strong>${cart.totalPrice}</strong>
+                  </div>
                 </div>
               </li>
               <li>
-                  <button 
-                  type="button" 
-                  className="primary block" 
+                <button
+                  type="button"
+                  className="primary block"
                   onClick={placeOrderHandler}
                   disabled={cart.cartItems.length === 0}
-                  >Place Order</button>
+                >
+                  Place Order
+                </button>
               </li>
+              {loading && <LoadingBox></LoadingBox>}
+              {error && <MessageBox variant='danger'>{error}</MessageBox>}
             </ul>
           </div>
         </div>
