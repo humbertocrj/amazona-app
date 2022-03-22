@@ -6,11 +6,11 @@ import { isAuth } from '../utils.js';
 const orderRouter = express.Router()
 
 orderRouter.post('/',isAuth, expressAsyncHandler(async (req, res)=>{
-    if(req.body.orderItens.length ===0){
+    if(req.body.orderItems.length ===0){
         res.status(400).send({message:'Cart is empty.'})
     }else{
         const order = new Order({
-            orderItens: req.body.orderItens,
+            orderItems: req.body.orderItems,
             shippingAddress:req.body.shippingAddress,
             paymentMethod:req.body.paymentMethod, 
             itemsPrice: req.body.itemsPrice,
@@ -21,7 +21,17 @@ orderRouter.post('/',isAuth, expressAsyncHandler(async (req, res)=>{
         })
 
         const createdOrder = await order.save()
+        console.log(createdOrder)
         res.status(201).send({message:'New order created!', order: createdOrder})
+    }
+}))
+
+orderRouter.get('/:id', isAuth, expressAsyncHandler(async (req, res)=>{
+    const order = await Order.findById(req.params.id)
+    if(order){
+        res.send(order)
+    }else{
+        res.status.send('Order not found.')
     }
 }))
 

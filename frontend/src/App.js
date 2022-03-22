@@ -9,6 +9,7 @@ import {signout} from './actions/userActions'
 import { ShippingAddressScreen } from "./screens/ShippingAddressScreen";
 import { PaymentMethodsScreen } from "./screens/PaymentMethodsScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import OrderScreen from "./screens/OrderScreen";
 
 function App() {
   //the function useSeletor allow us to access the store and its states, we'll get the cart state
@@ -76,6 +77,7 @@ function App() {
             <Route path="/shipping/" element={<ShippingAddressScreen />}></Route>
             <Route path="/payment/" element={<PaymentMethodsScreen />}></Route>
             <Route path="/placeOrder/" element={<PlaceOrderScreen />}></Route>
+            <Route path="/order/:id" element={<OrderScreen />}></Route>
 
             <Route path="/" element={<HomeScreen />} exact></Route>
           </Routes>
